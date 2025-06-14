@@ -3,14 +3,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
+builder.Services.AddControllers(); // Allowing reading on the Controllers file
 
+// Here we are enabling Cors for external API access 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowBlazorClient",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5048") // Altere para a porta do seu Blazor
+            policy.WithOrigins("http://localhost:5048") // Port of blazor
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -28,6 +29,6 @@ app.UseCors("AllowBlazorClient");
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.MapControllers(); // Mapping the read to the Controllers file
 
 app.Run();
